@@ -14,6 +14,8 @@ El puerto indicado en el mensaje de error es el **Puerto 53**, que se utiliza pa
 
 El problema más probable es que **el servidor DNS está caído, mal configurado o bloqueado por un firewall, lo que impide la resolución de nombres de dominio a direcciones IP**.
 
+---
+
 **Parte 2: Análisis y Causa del Incidente**
 
 - **Hora en que ocurrió el incidente: Según los registros de tcpdump, el incidente se registró a las 13:24:32.192571**.
