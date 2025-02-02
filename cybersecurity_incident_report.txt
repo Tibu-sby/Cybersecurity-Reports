@@ -1,0 +1,53 @@
+**Cybersecurity Incident Report: Network Traffic Analysis**
+
+---
+
+**Part 1: Summary of the Problem**
+
+The UDP protocol reveals that a DNS request was made to resolve the IP address of the domain **www.yummyrecipesforme.com**. However, the request resulted in an ICMP error message.
+
+Based on the results of the network analysis, the ICMP response indicated the following error:
+
+**"Port udp 53 unreachable"**
+
+The port noted in the error message is **Port 53**, which is used for **DNS (Domain Name System) services**.
+
+The most likely issue is that the **DNS server is either down, misconfigured, or blocked by a firewall, preventing the resolution of domain names to IP addresses**.
+
+---
+
+**Part 2: Analysis and Cause of the Incident**
+
+- **Time incident occurred:** According to the tcpdump logs, the incident was recorded at **13:24:32.192571**.
+
+- **How the IT team became aware of the incident:** Multiple clients reported that they were unable to access the website **www.yummyrecipesforme.com**, receiving an error message indicating **"destination port unreachable"**. After verifying the issue, the IT team attempted to access the website and encountered the same error.
+
+- **Actions taken by the IT department to investigate the incident:**
+  1. Used **tcpdump** to capture network traffic while attempting to access the website.
+  2. Identified that the browser was sending **UDP packets** to a **DNS server** requesting the domain resolution.
+  3. Detected **ICMP error messages** from the DNS server, indicating that **Port 53 was unreachable**.
+  4. Analyzed the logs and confirmed that all DNS requests were failing due to the same issue.
+
+- **Key findings of the IT department's investigation:**
+  - The **affected port** is **53**, which is crucial for DNS queries.
+  - The **DNS server involved** is **203.0.113.2**.
+  - The **ICMP response indicates that the DNS service is not responding**, which means DNS resolution fails, preventing access to the website.
+
+- **Likely cause of the incident:**
+  - **DNS server failure** (e.g., service is down or misconfigured).
+  - **Firewall blocking outbound UDP traffic on port 53**.
+  - **Potential DDoS attack affecting DNS services**.
+  - **Network misconfiguration leading to a lack of DNS resolution**.
+
+---
+
+**Next Steps:**
+1. **Verify the DNS server status** to determine if it is operational.
+2. **Check firewall rules** to ensure port 53 is open and not blocked.
+3. **Monitor for potential DDoS attacks** or excessive traffic directed at the DNS server.
+4. **Restart or reconfigure the DNS service** if necessary.
+5. **Implement redundant DNS servers** to prevent future issues.
+
+Report prepared by: TIBU-SBY
+Date: 02/02/2025
+

@@ -1,0 +1,50 @@
+**Informe de Incidente de Ciberseguridad: Análisis del Tráfico de Red**
+
+---
+
+**Parte 1: Resumen del Problema**
+
+El protocolo UDP revela que se realizó una solicitud DNS para resolver la dirección IP del dominio www.yummyrecipesforme.com. Sin embargo, la solicitud resultó en un mensaje de error ICMP.
+
+Según los resultados del análisis de red, la respuesta ICMP indicó el siguiente error:
+
+**"Puerto udp 53 inalcanzable"**
+
+El puerto indicado en el mensaje de error es el **Puerto 53**, que se utiliza para los servicios **DNS (Sistema de Nombres de Dominio)**.
+
+El problema más probable es que **el servidor DNS está caído, mal configurado o bloqueado por un firewall, lo que impide la resolución de nombres de dominio a direcciones IP**.
+
+**Parte 2: Análisis y Causa del Incidente**
+
+- **Hora en que ocurrió el incidente: Según los registros de tcpdump, el incidente se registró a las 13:24:32.192571**.
+
+- **Cómo el equipo de TI se dio cuenta del incidente:** Varios clientes informaron que no podían acceder al sitio web **www.yummyrecipesforme.com**, recibiendo un mensaje de error que indicaba "puerto de destino inalcanzable". Después de verificar el problema, el equipo de TI intentó acceder al sitio web y encontró el mismo error.
+
+- **Acciones tomadas por el departamento de TI para investigar el incidente**:
+ 1. Se utilizó tcpdump para capturar el tráfico de red mientras intentaban acceder al sitio web.
+ 2. Se identificó que el navegador estaba enviando paquetes UDP a un servidor DNS solicitando la resolución del dominio.
+ 3. Se detectaron mensajes de error ICMP desde el servidor DNS, indicando que el Puerto 53 no era alcanzable.
+ 4. Se analizaron los registros y se confirmó que todas las solicitudes DNS estaban fallando debido al mismo problema.
+
+- **Hallazgos clave de la investigación del departamento de TI:**
+ - El **puerto afectado** es el **53**, que es crucial para las consultas DNS.
+ - El **servidor DNS involucrado** es **203.0.113.2**.
+ - La **respuesta ICMP indica que el servicio DNS no está respondiendo**, lo que significa que la resolución de DNS falla, impidiendo el acceso al sitio web.
+
+- **Causa probable del incidente:**
+ - **Fallo del servidor DNS** (por ejemplo, servicio caído o mal configurado).
+ - **Firewall bloqueando el tráfico UDP saliente en el puerto 53**.
+ - **Posible ataque DDoS afectando los servicios DNS**.
+ - **Mala configuración de red que impide la resolución de DNS**.
+
+---
+
+**Próximos Pasos:**
+1. **Verificar el estado del servidor DNS** para determinar si está operativo.
+2. **Revisar las reglas del firewall** para asegurar que el puerto 53 esté abierto y no bloqueado.
+3. **Monitorear posibles ataques DDoS** o tráfico excesivo dirigido al servidor DNS.
+4. **Reiniciar o reconfigurar el servicio DNS** si es necesario.
+5. **Implementar servidores DNS redundantes** para evitar problemas futuros.
+
+Informe preparado por: TIBU-SBY
+Fecha: 02/02/2025
